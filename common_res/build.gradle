@@ -1,0 +1,40 @@
+import com.flywith24.version_config.BuildConfig
+import com.flywith24.version_config.dependencies.AndroidX
+import com.flywith24.version_config.dependencies.Google
+
+plugins {
+    id "com.flywith24.version"
+}
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion BuildConfig.compileSdkVersion
+    buildToolsVersion BuildConfig.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion BuildConfig.minSdkVersion
+        targetSdkVersion BuildConfig.targetSdkVersion
+        versionCode BuildConfig.versionCode
+        versionName BuildConfig.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation(AndroidX.constraintlayout)
+    implementation(AndroidX.recyclerView)
+    implementation(AndroidX.appcompat)
+    implementation(Google.material)
+
+}

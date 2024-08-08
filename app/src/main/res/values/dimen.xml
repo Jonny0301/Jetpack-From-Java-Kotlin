@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <dimen name="sliding_up_header">55dp</dimen>
+    <dimen name="sliding_up_header_land">200dp</dimen>
+
+
+</resources>

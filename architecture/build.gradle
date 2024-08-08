@@ -1,0 +1,80 @@
+import com.flywith24.version_config.BuildConfig
+import com.flywith24.version_config.dependencies.AndroidX
+import com.flywith24.version_config.dependencies.Google
+import com.flywith24.version_config.dependencies.Testing
+import com.flywith24.version_config.dependencies.ThirdParty
+
+
+plugins {
+    id "com.flywith24.version"
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion BuildConfig.compileSdkVersion
+    buildToolsVersion BuildConfig.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion BuildConfig.minSdkVersion
+        targetSdkVersion BuildConfig.targetSdkVersion
+        versionCode BuildConfig.versionCode
+        versionName BuildConfig.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    testImplementation(Testing.jUnit)
+    androidTestImplementation(Testing.androidJunit)
+    androidTestImplementation(Testing.androidRunner)
+    androidTestImplementation(Testing.espresso)
+
+    implementation(AndroidX.appcompat)
+    implementation(AndroidX.constraintlayout)
+    implementation(AndroidX.recyclerView)
+    implementation(AndroidX.Fragment.fragment)
+    implementation(Google.material)
+
+    implementation(AndroidX.Lifecycle.lifecycleRuntime)
+    implementation(AndroidX.Lifecycle.commonJava8)
+    implementation(AndroidX.Lifecycle.extensions)
+    implementation(AndroidX.Lifecycle.viewModel)
+    implementation(AndroidX.Lifecycle.liveData)
+
+    implementation(ThirdParty.Archi.unPeekLiveData)
+
+    implementation(AndroidX.Navigation.runtime)
+
+    implementation(ThirdParty.Glide.glide)
+
+}

@@ -1,0 +1,88 @@
+import com.flywith24.version_config.BuildConfig
+import com.flywith24.version_config.dependencies.AndroidX
+import com.flywith24.version_config.dependencies.Google
+import com.flywith24.version_config.dependencies.Testing
+import com.flywith24.version_config.dependencies.ThirdParty
+
+plugins {
+    id "com.flywith24.version"
+}
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion BuildConfig.compileSdkVersion
+    buildToolsVersion BuildConfig.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.kunminx.jetpack_j2k"
+
+        minSdkVersion BuildConfig.minSdkVersion
+        targetSdkVersion BuildConfig.targetSdkVersion
+        versionCode BuildConfig.versionCode
+        versionName BuildConfig.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation(Testing.jUnit)
+    androidTestImplementation(Testing.androidJunit)
+    androidTestImplementation(Testing.androidRunner)
+    androidTestImplementation(Testing.espresso)
+
+    implementation project(':architecture')
+    implementation project(':jetpack_java')
+    implementation project(':jetpack_kotlin')
+    implementation project(':common_res')
+
+    compileOnly(AndroidX.appcompat)
+    compileOnly(AndroidX.constraintlayout)
+    compileOnly(AndroidX.recyclerView)
+    compileOnly(Google.material)
+
+    compileOnly(AndroidX.Lifecycle.lifecycleRuntime)
+    compileOnly(AndroidX.Lifecycle.commonJava8)
+    compileOnly(AndroidX.Lifecycle.extensions)
+    compileOnly(AndroidX.Lifecycle.viewModel)
+    compileOnly(AndroidX.Lifecycle.liveData)
+
+    compileOnly(AndroidX.Navigation.runtime)
+
+
+    implementation(Google.gson)
+
+    implementation(ThirdParty.permission)
+    implementation(ThirdParty.Glide.glide)
+    annotationProcessor(ThirdParty.Glide.compiler)
+}
